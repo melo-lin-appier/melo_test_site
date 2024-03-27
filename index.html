@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Melo's Test Site</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            margin: 5%
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Helvetica', sans-serif;
+            color: #2d3e2b;
+        }
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        input[type=text].myinput,
+        select {
+            width: 15%;
+            padding: 5px 5px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #597059;
+            color: #fff;
+            box-shadow: 0 3px 0 #597059;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            outline: none;
+            position: relative;
+            top: 0;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            -ms-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1 aiq-tag="qg_title">[AIQUA] Melo's Test Site</h1>
+
+    <p>HELLO USER!</p>
+
+    <div>
+        <p>Cookie:
+            <script>
+                document.write(document.cookie)
+            </script>
+        </p>
+    </div>
+
+    <div id="inwebTrigger" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom">
+            <div class="w3-container w3-black">
+                <h1>Show In-Web campaign</h1>
+            </div>
+            <div class="w3-container">
+                <p>Trigger in-web campaign</p>
+                <select name="inweb_dropdown" id="inweb_dropdown">
+                    <option value="">-</option>
+                    <optgroup label="In-Web Campaign"></optgroup>
+                    <option value="creative_studio">Creative Studio</option>
+                    <option value="fixbanner">Fixbanner</option>
+                    <option value="multi_image">Multiple images</option>
+                    <option value="multi_action">Multiple Actions</option>
+                    <option value="lead_gen">Lead generation</option>
+                    <option value="subscription_boost">Subscription boost</option>
+                    <option value="html_editor">HTML editor</option>
+                    <option value="web_push">Web Push</option>
+                    </optgroup>
+                </select>
+                <p><button onclick="show_inweb()"> Show In-Web Campaign </button></p>
+                <script>
+                    function show_inweb() {
+                        var campaign_name = document.querySelector('#inweb_dropdown').value;
+                        if (campaign_name) {
+                            qg("event", "showInweb", { "campaign_name": campaign_name });
+                            //qg("event", "showInweb");
+                            console.log("InWeb campaign name: " + campaign_name);
+                        }
+                    }
+                </script>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h1>Your Information</h1>
+        <p>Name: <input type="text" class="myinput" id="name" placeholder="Melo"></p>
+        <p>Phone No: <input type="text" class="myinput" id="phone_no" placeholder="0912345678"></p>
+        <p>Gender:
+            <select name="gender" id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </p>
+        <p>City: <input type="text" class="myinput" id="city" placeholder="Taipei"></p>
+        <p>Email: <input type="text" class="myinput" id="email" placeholder="aa@abc.com"></p>
+        <p><button onclick="submit_profile()"> Send your profile to AIQUA </button></p>
+        <script>
+            function submit_profile() {
+                var name = document.getElementById("name").value;
+                var phone_no = document.getElementById("phone_no").value;
+                var gender = document.querySelector('#gender').value;
+                var city = document.getElementById("city").value;
+                var email = document.getElementById("email").value;
+                qg("identify", {
+                    "name": name,
+                    "phoneNo": phone_no,
+                    "gender": gender,
+                    "city": city,
+                    "email": email
+                });
+                qg("event", "submit_profile");
+                alert('Done!');
+            }
+        </script>
+    </div>
+
+
+    <script type="text/javascript">
+        !function (q, g, r, a, p, h, js) {
+            if (q.qg) return;
+            js = q.qg = function () {
+                js.callmethod ? js.callmethod.call(js, arguments) : js.queue.push(arguments);
+            };
+            js.queue = [];
+            p = g.createElement(r); p.async = !0; p.src = a; h = g.getElementsByTagName(r)[0];
+            h.parentNode.insertBefore(p, h);
+        }(window, document, 'script', 'https://aiqua-stg-qgr-ph.s3-ap-southeast-1.amazonaws.com/qgr-http/qgraph.7a977e680296e4ae4ec2.js');
+    </script>
+</body>
+
+</html>
