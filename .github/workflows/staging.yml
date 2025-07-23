@@ -1,0 +1,21 @@
+name: Deploy Staging Site to Netlify
+on:
+  push:
+    paths:
+      - 'stg/**'
+      - '.github/workflows/staging.yml'
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+      - name: Deploy to Netlify
+        run: netlify deploy --prod --dir=. --site=$NETLIFY_STAGING_SITE_ID
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ vars.NETLIFY_STAGING_SITE_ID }}
