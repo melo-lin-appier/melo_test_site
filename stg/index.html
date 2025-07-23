@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Melo's Staging Test Site</title>
+    <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+            margin: 5%
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Helvetica', sans-serif;
+            color: #2d3e2b;
+        }
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+        }
+
+        input[type=text].myinput,
+        select {
+            width: 15%;
+            padding: 5px 5px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #597059;
+            color: #fff;
+            box-shadow: 0 3px 0 #597059;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            outline: none;
+            position: relative;
+            top: 0;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            -ms-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1 aiq-tag="qg_title">[AIQUA] Melo Staging</h1>
+
+    <p>HELLO USER!</p>
+
+    <div>
+        <p>Cookie:
+            <script>
+                document.write(document.cookie)
+            </script>
+        </p>
+    </div>
+
+    <div id="inwebTrigger" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom">
+            <div class="w3-container w3-black">
+                <h1>Show In-Web campaign</h1>
+            </div>
+            <div class="w3-container">
+                <p>Trigger in-web campaign</p>
+                <select name="inweb_dropdown" id="inweb_dropdown">
+                    <option value="">-</option>
+                    <optgroup label="In-Web Campaign"></optgroup>
+                    <option value="creative_studio">Creative Studio</option>
+                    <option value="fixbanner">Fixbanner</option>
+                    <option value="multi_image">Multiple images</option>
+                    <option value="multi_action">Multiple Actions</option>
+                    <option value="lead_gen">Lead generation</option>
+                    <option value="subscription_boost">Subscription boost</option>
+                    <option value="html_editor">HTML editor</option>
+                    <option value="web_push">Web Push</option>
+                    </optgroup>
+                </select>
+                <p><button onclick="show_inweb()"> Show In-Web Campaign </button></p>
+                <script>
+                    function show_inweb() {
+                        var campaign_name = document.querySelector('#inweb_dropdown').value;
+                        if (campaign_name) {
+                            qg("event", "showInweb", { "campaign_name": campaign_name });
+                            //qg("event", "showInweb");
+                            console.log("InWeb campaign name: " + campaign_name);
+                        }
+                    }
+                </script>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h1>Your Information</h1>
+        <p>Name: <input type="text" class="myinput" id="name" placeholder="Melo"></p>
+        <p>Phone No: <input type="text" class="myinput" id="phone_no" placeholder="0912345678"></p>
+        <p>Gender:
+            <select name="gender" id="gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+            </select>
+        </p>
+        <p>City: <input type="text" class="myinput" id="city" placeholder="Taipei"></p>
+        <p>Email: <input type="text" class="myinput" id="email" placeholder="aa@abc.com"></p>
+        <p><button onclick="submit_profile()"> Send your profile to AIQUA </button></p>
+        <script>
+            function submit_profile() {
+                var name = document.getElementById("name").value;
+                var phone_no = document.getElementById("phone_no").value;
+                var gender = document.querySelector('#gender').value;
+                var city = document.getElementById("city").value;
+                var email = document.getElementById("email").value;
+                qg("identify", {
+                    "name": name,
+                    "phoneNo": phone_no,
+                    "gender": gender,
+                    "city": city,
+                    "email": email
+                });
+                qg("event", "submit_profile");
+                alert('Done!');
+            }
+        </script>
+    </div>
+
+    <hr />
+    <div>
+        <h3 id="shopping_product_1">Emit product_viewed Event</h3>
+        <form id="product_1">
+            <img id="ts" src="../img/ts.png" alt="Taylor Swift"
+                onclick="clickProduct_1('Taylor Swift', 1, 100, 'ts')">
+            <img id="fearless" src="../img/fearless.png" alt="Fearless"
+                onclick="clickProduct_1('Fearless', 2, 200, 'fearless')">
+            <img id="speak_now" src="../img/speak_now.png" alt="Speak Now" 
+                onclick="clickProduct_1('Speak Now', 3, 300, 'speak_now')">
+            <img id="red" src="../img/red.png" alt="Red"
+                onclick="clickProduct_1('Red', 4, 400, 'red')">
+            <img id="1989" src="../img/1989.png" alt="1989"
+                onclick="clickProduct_1('1989', 5, 500, '1989')">
+            <img id="reputation" src="../img/reputation.png" alt="Reputation"
+                onclick="clickProduct_1('Reputation', 6, 600, 'reputation')">
+            
+        </form>
+        <p id="product_1_detail"></p>
+        <div>
+            <button id="submitBtnOfProduct_1">View product</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function clickProduct_1(name, id, price, img_id) {
+            // var url = document.location
+            document.getElementById("product_1_detail").innerHTML = "Product name: " + name + "<br> ID: " + id + "<br> Price: " + price
+
+            var btnOfProduct = document.getElementById("submitBtnOfProduct_1");
+            img_url = document.getElementById(img_id).src;
+            btnOfProduct.onclick = function () {
+                console.log("Fit trigger rule", + new Date());
+
+                console.log(img_url)
+                qg("event", "product_viewed", { "product_id": id, "product_name": name, "product_price": price, "product_image_url": img_url }, price);
+                alert('Done!');
+            }
+        }
+    </script>
+    <hr />
+
+    <div>
+        <h3 id="shopping_product_2">Emit product_added_to_wishlist Event</h3>
+        <form id="product_2">
+            <img id="lover" src="../img/lover.png" alt="Lover"
+                onclick="clickProduct_2('Lover', 1, 100, 'lover')">
+            <img id="folklore" src="../img/folklore.png" alt="folklore"
+                onclick="clickProduct_2('folklore', 2, 200, 'folklore')">
+            <img id="evermore" src="../img/evermore.png" alt="evermore" 
+                onclick="clickProduct_2('evermore', 3, 300, 'evermore')">
+            <img id="midnights" src="../img/midnights.png" alt="Midnights"
+                onclick="clickProduct_2('Midnights', 4, 400, 'midnights')">
+            <img id="ttpd" src="../img/ttpd.png" alt="TTPD"
+                onclick="clickProduct_2('TTPD', 5, 500, 'ttpd')">
+        </form>
+        <p id="product_2_detail"></p>
+        <div>
+            <button id="submitBtnOfProduct_2">Add to Wishlist</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function clickProduct_2(name, id, price, img_id) {
+            // var url = document.location
+            document.getElementById("product_2_detail").innerHTML = "Product name: " + name + "<br> ID: " + id + "<br> Price: " + price
+
+            var btnOfProduct = document.getElementById("submitBtnOfProduct_2");
+            img_url = document.getElementById(img_id).src;
+            btnOfProduct.onclick = function () {
+                console.log("Fit trigger rule", + new Date());
+
+                console.log(img_url)
+                qg("event", "product_added_to_wishlist", { "product_id": id, "product_name": name, "product_price": price, "product_image_url": img_url }, price);
+                alert('Done!');
+            }
+        }
+    </script>
+    <hr />
+
+    <div>
+        <h3 id="shopping_product_3">Emit product_purchased Event</h3>
+        <form id="product_3">
+            <img id="crossing" src="../img/crossing.png" alt="crossing" 
+                onclick="clickProduct_3('crossing', 1, 100, 'crossing')">
+            <img id="x" src="../img/x.png" alt="X"
+                onclick="clickProduct_3('X', 2, 200, 'x')">
+            <img id="rogue_rouge" src="../img/rogue_rouge.png" alt="Rogue Rouge"
+                onclick="clickProduct_3('Rogue Rouge', 3, 300, 'rogue_rouge')">
+            <img id="y" src="../img/y.png" alt="Y"
+                onclick="clickProduct_3('Y', 4, 400, 'y')">
+            <img id="z" src="../img/z.png" acclt="Z"
+                onclick="clickProduct_3('Z', 5, 500, 'z')">
+            <img id="no_more_sad_songs" src="../img/no_more_sad_songs.png" alt="No More Sad Songs"
+                onclick="clickProduct_3('No More Sad Songs', 6, 600, 'no_more_sad_songs')">
+        </form>
+        <p id="product_3_detail"></p>
+        <div>
+            <button id="submitBtnOfProduct_3">Purchased</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function clickProduct_3(name, id, price, img_id) {
+            // var url = document.location
+            document.getElementById("product_3_detail").innerHTML = "Product name: " + name + "<br> ID: " + id + "<br> Price: " + price
+
+            var btnOfProduct = document.getElementById("submitBtnOfProduct_3");
+            img_url = document.getElementById(img_id).src;
+            btnOfProduct.onclick = function () {
+                console.log("Fit trigger rule", + new Date());
+
+                console.log(img_url)
+                qg("event", "product_purchased", { "product_id": id, "product_name": name, "product_price": price, "product_image_url": img_url }, price);
+                alert('Done!');
+            }
+        }
+    </script>
+    <hr />
+
+    <div>
+        <h1>Faith Value: <nobr id='faithValue'>100</nobr>
+        </h1>
+        <input id="mySlider" type="range" min="1" max="10" value="1" step="1" onchange="resizeImage();"
+            style="width:200px;">
+        <p><button id="submitBtnOfFaithValue">Recharge Your Faith Value</button></p>
+        <div id="img-wrapper" style="width:100px; height:100px;">
+            <img src="Apple-logo.png" alt="My Image!" id="myImage" style="width:100%; height:1005;" />
+        </div>
+
+
+        <script type="text/javascript">
+            function resizeImage() {
+                var image = document.getElementById('img-wrapper'),
+                    ranger = document.getElementById('mySlider');
+                image.style.width = 50 * (mySlider.value / 1) + 'px';
+                faithValue = document.getElementById('faithValue').textContent = mySlider.value * 100;
+                window.scrollTo(0, document.body.scrollHeight);
+
+                var btnOfFaithValue = document.getElementById("submitBtnOfFaithValue");
+                btnOfFaithValue.onclick = function () {
+                    qg("event", "recharge_faith_value", { "id": mySlider.value, "name": "apple", "faith_value": faithValue }, faithValue);
+                    alert('Done!');
+                }
+            }
+        </script>
+    </div>
+
+
+    <script type="text/javascript">
+        !function(q,g,r,a,p,h,js) {
+          q.appier=q.qg;
+          if(q.qg)return;
+          js=q.appier=q.qg=function() {
+            js.callmethod ? js.callmethod.call(js, arguments) : js.queue.push(arguments);
+          };
+          js.queue=[];
+          p=g.createElement(r);p.async=!0;p.src=a;h=g.getElementsByTagName(r)[0];
+          h.parentNode.insertBefore(p,h);
+        } (window,document,'script','https://aiqua-stg-qgr-ph.s3-ap-southeast-1.amazonaws.com/qgr-http/qgraph.92fc6feef874a00cc8a3.js');
+      </script>
+</body>
+
+</html>
