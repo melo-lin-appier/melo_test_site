@@ -15,7 +15,7 @@ jobs:
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
       - name: Deploy to Netlify
-        run: netlify deploy --prod --dir=. --site=$NETLIFY_STAGING_SITE_ID
+        run: netlify deploy --prod --dir=./stg --site=$NETLIFY_STAGING_SITE_ID
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ vars.NETLIFY_STAGING_SITE_ID }}
